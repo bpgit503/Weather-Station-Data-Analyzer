@@ -4,6 +4,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Main {
+
     public static void main(String[] args) {
 
         try {
@@ -11,6 +12,13 @@ public class Main {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
+
+            if(conn.getResponseCode() != 200) {
+                System.out.println("Error: Unable to fetch weather data");
+                return;
+            }
+
+
             System.out.println("Response Code: " + conn.getResponseCode());
             System.out.println("Response Message: " + conn.getResponseMessage());
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
