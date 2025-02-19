@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -19,8 +22,7 @@ public class Main {
             }
 
 
-            System.out.println("Response Code: " + conn.getResponseCode());
-            System.out.println("Response Message: " + conn.getResponseMessage());
+
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String inputLine;
             StringBuffer content = new StringBuffer();
@@ -28,8 +30,19 @@ public class Main {
                 content.append(inputLine);
             }
             in.close();
-            System.out.println(content);
             conn.disconnect();
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+            WeatherResponse weatherData = mapper.readValue(content.toString(), WeatherResponse.class);
+
+            System.out.println("Location: " + weatherData.location.name + ", " + weatherData.location.country);
+            System.out.println("Date & Time: " + weatherData.location.localtime);
+            System.out.println("Temperature (°C): " + weatherData.current.temp_c);
+            System.out.println("Wind Speed (kph): " + weatherData.current.wind_kph);
+            System.out.println("Weather Condition: " + weatherData.current.condition.text);
+
 
         } catch (Exception e) {
             System.out.println(e);
