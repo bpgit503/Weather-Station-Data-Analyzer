@@ -1,5 +1,8 @@
+import lombok.Getter;
+
+@Getter
 public class WeatherLocation {
-    public String name;
-    public String country;
-    public String localtime;
+   private String name;
+   private String country;
+   private String localtime;
 }
