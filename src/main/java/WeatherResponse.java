@@ -1,4 +1,8 @@
+import lombok.Getter;
+
+@Getter
 public class WeatherResponse {
-    public WeatherLocation location;
-    public WeatherCurrent current;
+    private WeatherLocation location;
+    private WeatherCurrent current;
+    private WeatherForecast forecast;
 }

@@ -1,3 +1,6 @@
+import lombok.Getter;
+
+@Getter
 public class WeatherCondition {
-    public String text;
+    private String text;
 }
