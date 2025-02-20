@@ -1,10 +1,3 @@
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Optional;
 
 public class Main {
@@ -14,10 +7,13 @@ public class Main {
         final String currentDayURL = "http://api.weatherapi.com/v1/current.json?key=610ec3279f83484a9b2143452251302&q=Katowice&aqi=no";
 
         ApiCaller getPastWeatherAPI = new ApiCaller(forecastURL);
+        getPastWeatherAPI.openConnection();
+
         Optional<WeatherResponse> weatherData = getPastWeatherAPI.jsonToJava();
+
         if (weatherData.isPresent()) {
             System.out.println(weatherData.get().getLocation().getCountry());
-        }else{
+        } else {
             System.out.println("No weather data found");
         }
     }
