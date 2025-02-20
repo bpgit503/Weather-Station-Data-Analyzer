@@ -7,5 +7,6 @@ public class WeatherGivenDay {
     private double maxtemp_c;
     private double mintemp_c;
     private double avgtemp_c;
+    private int avghumidity;
     private WeatherCondition condition;
 }
