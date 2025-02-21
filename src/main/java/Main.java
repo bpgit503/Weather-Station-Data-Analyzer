@@ -3,14 +3,14 @@ import java.util.Optional;
 public class Main {
 
     public static void main(String[] args) {
-        final String forecastURL = "http://api.weatherapi.com/v1/history.json?key=610ec3279f83484a9b2143452251302&q=Katowice&dt=2025-02-10";
+        final String forecastURL = "http://api.weatherapi.com/v1/history.json?key=610ec3279f83484a9b2143452251302&q=Katowice&dt=2025-01-01";
 
         ApiCaller getPastWeatherAPI = new ApiCaller(forecastURL);
         getPastWeatherAPI.openConnection();
 
         Optional<WeatherResponse> weatherData = getPastWeatherAPI.jsonToJava();
 
-        if (false) {
+        if (weatherData.isPresent()) {
             System.out.println("Location: "+ weatherData.get().getLocation().getName() + ", "
                     + weatherData.get().getLocation().getCountry());
             System.out.println("Date: "+weatherData.get().getForecast().getForecastday().getFirst().getDate());
@@ -18,9 +18,7 @@ public class Main {
             System.out.println("Maximum Temperature (°C): "+weatherData.get().getForecast().getForecastday().getFirst().getDay().getMaxtemp_c());
             System.out.println("Average Temperature (°C): "+weatherData.get().getForecast().getForecastday().getFirst().getDay().getAvgtemp_c());
             System.out.println("Average Humidity: "+weatherData.get().getForecast().getForecastday().getFirst().getDay().getAvghumidity());
-            System.out.println("Wind Speed (kph): "+weatherData.get().getForecast().getForecastday().getFirst().getDay().getCondition().getText());
-
-
+            System.out.println("Max Wind  (kph): "+weatherData.get().getForecast().getForecastday().getFirst().getDay().getCondition().getText());
 
         } else {
             System.out.println("No weather data found");

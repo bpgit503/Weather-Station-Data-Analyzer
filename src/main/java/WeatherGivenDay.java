@@ -8,5 +8,8 @@ public class WeatherGivenDay {
     private double mintemp_c;
     private double avgtemp_c;
     private int avghumidity;
+    private double totalprecip_mm;
+    private double totalsnow_cm;
     private WeatherCondition condition;
+    private double uv;
 }
