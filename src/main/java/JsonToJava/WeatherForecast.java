@@ -1,3 +1,5 @@
+package JsonToJava;
+
 import lombok.Getter;
 
 import java.util.List;
