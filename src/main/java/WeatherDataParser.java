@@ -41,7 +41,19 @@ public class WeatherDataParser {
             double lat = location.getDouble("lat");
             double lon = location.getDouble("lon");
 
+            JSONObject forecastDay = json.getJSONObject("forecast").getJSONArray("forecastday").getJSONObject(0);
+            String date = forecastDay.getString("date");
+            JSONObject day = forecastDay.getJSONObject("day");
 
+            double minTemp = day.getDouble("mintemp_c");
+            double maxTemp = day.getDouble("maxtemp_c");
+            double avgTemp = day.getDouble("avgtemp_c");
+            double avgHumidity = day.getDouble("avghumidity");
+            double maxWind = day.getDouble("maxwind_kph");
+            double precip = day.getDouble("totalprecip_mm");
+            double snow = day.getDouble("totalsnow_cm");
+            double uvIndex = day.getDouble("uv");
+            String condition = day.getJSONObject("condition").getString("text");
 
         } catch (Exception e) {
             System.out.println(e);
