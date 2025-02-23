@@ -92,7 +92,7 @@ public class WeatherDataParser {
     }
 
     private int insertWeatherData(Connection conn, int locationId, String date, double minTemp, double maxTemp, double avgTemp,
-                                         double avgHumidity, double maxWind, String weather_condition, double precip, double snow, double uvIndex) throws SQLException {
+                                  double avgHumidity, double maxWind, String weather_condition, double precip, double snow, double uvIndex) throws SQLException {
         String query = "INSERT INTO weather_data (location_id, date, min_temp_c, max_temp_c, avg_temp_c, avg_humidity, max_wind_kph, weather_condition, precip_mm, totalsnow_cm, uv_index) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         stmt.setInt(1, locationId);
