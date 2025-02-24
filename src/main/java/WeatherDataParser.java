@@ -58,8 +58,9 @@ public class WeatherDataParser {
             double uvIndex = day.getDouble("uv");
             String condition = day.getJSONObject("condition").getString("text");
 
-            int weatherId = insertWeatherData(conn, locationId, date, minTemp, maxTemp, avgTemp, avgHumidity, maxWind, condition, precip, snow, uvIndex);
+            insertWeatherData(conn, locationId, date, minTemp, maxTemp, avgTemp, avgHumidity, maxWind, condition, precip, snow, uvIndex);
 
+            System.out.println("Data inserted successfully.");
 
         } catch (Exception e) {
             System.out.println(e);
