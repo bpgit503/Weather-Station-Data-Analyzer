@@ -69,26 +69,30 @@ public class WeatherDataParser {
     }
 
     private int insertLocation(Connection conn, String city, String country, double lat, double lon) throws SQLException {
-        String query = "INSERT INTO locations (city, country, lat, lon) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE city=city";
-        PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+        String query = "SELECT location_id FROM locations WHERE city = ? AND country = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, city);
         stmt.setString(2, country);
-        stmt.setDouble(3, lat);
-        stmt.setDouble(4, lon);
-        stmt.executeUpdate();
 
-        ResultSet rs = stmt.getGeneratedKeys();
+        ResultSet rs = stmt.executeQuery();
+
+
         if (rs.next()) {
-            return rs.getInt(1);
-        } else {
-            // If the location already exists, fetch its ID
-            query = "SELECT location_id FROM locations WHERE city = ? AND country = ?";
-            stmt = conn.prepareStatement(query);
-            stmt.setString(1, city);
-            stmt.setString(2, country);
-            rs = stmt.executeQuery();
-            rs.next();
             return rs.getInt("location_id");
+        } else {
+            // Insert only if not exists
+            String insertQuery = "INSERT INTO locations (city, country, lat, lon) VALUES (?, ?, ?, ?)";
+            PreparedStatement insertStmt = conn.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            insertStmt.setString(1, city);
+            insertStmt.setString(2, country);
+            insertStmt.setDouble(3, lat);
+            insertStmt.setDouble(4, lon);
+            insertStmt.executeUpdate();
+
+            ResultSet generatedKeys = insertStmt.getGeneratedKeys();
+            generatedKeys.next();
+            return generatedKeys.getInt(1);
         }
     }
 
