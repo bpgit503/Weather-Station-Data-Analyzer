@@ -11,6 +11,19 @@ public class WeatherWatchApplication {
 
             try {
 
+//                //test
+//                String forecastURLTest = "http://api.weatherapi.com/v1/history.json?key=610ec3279f83484a9b2143452251302&q=berlin&dt=2025/01/01";
+//                // Fetch API data
+//                String JsonResponseWeatherData2 = parser.fetchWeatherData(forecastURLTest);
+//
+//                // Parse and insert into DB
+//                parser.parseAndStoreWeatherData(JsonResponseWeatherData2);
+//
+//                System.out.println("DONE");
+//                System.exit(0);
+
+
+
                 LocalDate startDate = LocalDate.of(2024, 2, 24);
                 LocalDate endDate = LocalDate.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

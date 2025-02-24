@@ -42,7 +42,7 @@ public class WeatherDataParser {
             double lat = location.getDouble("lat");
             double lon = location.getDouble("lon");
 
-            int locationId = insertLocation(conn, city, country, lat, lon);
+            long locationId = insertLocation(conn, city, country, lat, lon);
 
             JSONObject forecastDay = json.getJSONObject("forecast").getJSONArray("forecastday").getJSONObject(0);
             String date = forecastDay.getString("date");
@@ -92,11 +92,11 @@ public class WeatherDataParser {
         }
     }
 
-    private int insertWeatherData(Connection conn, int locationId, String date, double minTemp, double maxTemp, double avgTemp,
+    private int insertWeatherData(Connection conn, long locationId, String date, double minTemp, double maxTemp, double avgTemp,
                                   double avgHumidity, double maxWind, String weather_condition, double precip, double snow, double uvIndex) throws SQLException {
         String query = "INSERT INTO weather_data (location_id, date, min_temp_c, max_temp_c, avg_temp_c, avg_humidity, max_wind_kph, weather_condition, precip_mm, totalsnow_cm, uv_index) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setInt(1, locationId);
+        stmt.setLong(1, locationId);
         stmt.setString(2, date);
         stmt.setDouble(3, minTemp);
         stmt.setDouble(4, maxTemp);
